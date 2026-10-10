@@ -1,0 +1,440 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090b12">
+<title>LEVEL UP | Gaming Store</title>
+<style>
+:root {
+  --bg:#090b12; --panel:#141927; --line:#2b3347;
+  --text:#f4f6ff; --muted:#a4aec2; --lime:#c8ff42;
+  --cyan:#6ce9ff;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);
+font-family:Arial,Helvetica,sans-serif}
+button,input,select{font:inherit}
+button,a{cursor:pointer}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1120px,92%);margin:auto}
+.promo{background:var(--lime);color:#10140a;text-align:center;
+padding:9px;font-size:12px;font-weight:bold;letter-spacing:2px}
+header{position:sticky;top:0;z-index:5;background:#090b12ee;
+backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav{display:flex;justify-content:space-between;align-items:center;
+gap:14px;min-height:70px}
+.logo{font-size:23px;font-weight:900;letter-spacing:2px}
+.logo span,h1 span{color:var(--lime)}
+.navbuttons{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{border:0;border-radius:10px;padding:12px 15px;
+font-weight:bold;transition:.2s}
+.btn:hover{transform:translateY(-2px)}
+.primary{background:var(--lime);color:#111}
+.secondary{background:var(--panel);color:white;border:1px solid var(--line)}
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:30px;
+align-items:center;padding:65px 0}
+.kicker{color:var(--lime);font-size:12px;letter-spacing:3px;font-weight:bold}
+h1{font-size:clamp(42px,6vw,76px);line-height:.98;letter-spacing:-3px;margin:18px 0}
+p{line-height:1.7}
+.muted{color:var(--muted)}
+.hero p{max-width:480px;color:var(--muted)}
+.heroart{min-height:300px;display:grid;place-items:center;
+border:1px solid var(--line);border-radius:25px;
+background:radial-gradient(circle at center,#293852,#111522 65%);
+font-size:clamp(100px,18vw,180px);animation:float 4s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-10px)}}
+@keyframes appear{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:45px}
+.stat{padding:18px;border:1px solid var(--line);border-radius:14px}
+.stat strong{font-size:24px}.stat small{display:block;color:var(--muted);margin-top:5px}
+section.catalog{padding:25px 0 65px}
+.heading{display:flex;justify-content:space-between;align-items:end;gap:12px}
+h2{font-size:clamp(26px,4vw,38px);margin:10px 0}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}
+.tools input{flex:1;min-width:180px}
+.field{background:var(--panel);color:white;border:1px solid var(--line);
+border-radius:10px;padding:13px;min-width:140px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
+.product{border:1px solid var(--line);border-radius:17px;overflow:hidden;
+background:linear-gradient(160deg,#171e2e,#10131c);
+animation:appear .4s both;transition:.2s}
+.product:hover{transform:translateY(-5px);border-color:#c8ff4277}
+.productart{height:175px;display:grid;place-items:center;font-size:75px;
+background:radial-gradient(circle,#34415e,#171c2a 70%);position:relative}
+.tag{position:absolute;top:12px;left:12px;background:var(--lime);
+color:#111;padding:6px 9px;border-radius:20px;font-size:10px;font-weight:bold}
+.details{padding:17px}
+.category{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--cyan)}
+.details h3{margin:8px 0}
+.details p{font-size:13px;color:var(--muted);min-height:42px}
+.price{font-size:19px;font-weight:bold}
+.old{font-size:12px;text-decoration:line-through;color:var(--muted);margin-left:7px}
+.actions{display:flex;gap:8px;margin-top:14px}
+.actions button{flex:1;padding:10px 8px}
+.empty{grid-column:1/-1;padding:35px;text-align:center;border:1px dashed var(--line);
+border-radius:14px;color:var(--muted)}
+.banner{border:1px solid #c8ff4244;background:#c8ff420c;border-radius:20px;
+padding:27px;display:flex;justify-content:space-between;align-items:center;gap:15px}
+.benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin:22px 0 60px}
+.benefit{border:1px solid var(--line);border-radius:15px;padding:20px}
+.benefit p{color:var(--muted);font-size:13px}
+footer{border-top:1px solid var(--line);padding:27px 0;color:var(--muted);font-size:13px}
+.footerinner{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.floatwa{position:fixed;bottom:17px;right:17px;background:#25d366;color:#05210e;
+padding:13px 16px;border-radius:30px;font-weight:bold;z-index:4}
+.backdrop{position:fixed;inset:0;background:#000b;z-index:10;
+display:none;align-items:center;justify-content:center;padding:15px}
+.backdrop.open{display:flex}
+.modal{width:min(580px,100%);max-height:90vh;overflow:auto;
+background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:22px}
+.modalhead{display:flex;justify-content:space-between;align-items:center}
+.cartlist,.adminlist{display:grid;gap:10px;margin:17px 0}
+.cartitem,.adminrow{display:flex;justify-content:space-between;gap:12px;
+align-items:center;border:1px solid var(--line);border-radius:12px;padding:12px}
+.cartitem small,.adminrow small{display:block;color:var(--muted);margin-top:5px}
+.qty{display:flex;gap:8px;align-items:center;margin-top:8px}
+.qty button{background:#222a3b;color:white;border:1px solid var(--line);
+border-radius:6px;padding:4px 10px}
+.total{display:flex;justify-content:space-between;border-top:1px solid var(--line);
+padding-top:15px;font-size:19px;font-weight:bold}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.formgrid .full{grid-column:1/-1}
+.notice{font-size:12px;line-height:1.6;color:#f3d89a;
+border:1px solid #f3d89a55;padding:12px;border-radius:10px;margin:12px 0}
+.toast{position:fixed;bottom:75px;left:50%;transform:translateX(-50%);
+background:var(--lime);color:#111;padding:12px 18px;border-radius:30px;
+font-weight:bold;display:none;z-index:20}
+@media(max-width:760px){
+ .hero{grid-template-columns:1fr;padding:42px 0}
+ .heroart{min-height:230px}
+ .grid{grid-template-columns:repeat(2,1fr)}
+ .benefits{grid-template-columns:1fr}
+ .navlinks{font-size:12px}
+}
+@media(max-width:500px){
+ .grid{grid-template-columns:1fr}
+ .productart{height:205px}
+ .stats{grid-template-columns:1fr 1fr}
+ .stat:last-child{grid-column:1/-1}
+ .heading,.banner{align-items:flex-start;flex-direction:column}
+ .formgrid{grid-template-columns:1fr}
+ .formgrid .full{grid-column:auto}
+ .logo{font-size:18px}
+ nav{padding:10px 0}
+}
+</style>
+</head>
+<body>
+<div class="promo">LEVEL UP YOUR GAME · TU PRÓXIMO NIVEL EMPIEZA ACÁ</div>
+
+<header>
+  <nav class="wrap">
+    <a class="logo" href="#"><span>LEVEL</span> UP.</a>
+    <div class="navbuttons">
+      <a class="btn secondary" href="#catalogo">Catálogo</a>
+      <button class="btn secondary" id="adminOpen">⚙ Admin</button>
+      <button class="btn primary" id="cartOpen">🛒 Carrito (<span id="count">0</span>)</button>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <div class="kicker">GAMING STORE · SELECCIÓN PREMIUM</div>
+      <h1>JUGÁ.<br>COMPETÍ.<br><span>SUBÍ DE NIVEL.</span></h1>
+      <p>Consolas, accesorios y tecnología gamer para llevar tu setup al siguiente nivel.</p>
+      <a class="btn primary" href="#catalogo">Explorar catálogo ↗</a>
+      <button class="btn secondary" id="heroCart">Ver carrito</button>
+    </div>
+    <div class="heroart" aria-label="Control de videojuegos">🎮</div>
+  </section>
+
+  <div class="stats">
+    <div class="stat"><strong>GG</strong><small>Good game, siempre</small></div>
+    <div class="stat"><strong>GAMER</strong><small>Tu pasión, tu setup</small></div>
+    <div class="stat"><strong>LEVEL UP</strong><small>Tu próxima partida comienza acá</small></div>
+  </div>
+
+  <section class="catalog" id="catalogo">
+    <div class="heading">
+      <div><div class="kicker">ELEGÍ TU LOADOUT</div><h2>Catálogo destacado</h2>
+      <p class="muted">Encontrá tu próximo upgrade.</p></div>
+      <span class="muted" id="productCount"></span>
+    </div>
+
+    <div class="tools">
+      <input class="field" id="search" placeholder="Buscar productos..." aria-label="Buscar">
+      <select class="field" id="category">
+        <option value="all">Todas las categorías</option>
+        <option>Consolas</option><option>Accesorios</option>
+        <option>Audio</option><option>PC Gaming</option>
+      </select>
+      <select class="field" id="sort">
+        <option value="featured">Destacados</option>
+        <option value="low">Precio menor</option>
+        <option value="high">Precio mayor</option>
+        <option value="name">Nombre A-Z</option>
+      </select>
+    </div>
+    <div class="grid" id="products"></div>
+  </section>
+
+  <section>
+    <div class="banner">
+      <div><div class="kicker">TU SETUP, TU ESTILO</div>
+      <h2>¿Listo para el próximo nivel?</h2>
+      <p class="muted">Armá tu carrito y consultá por WhatsApp.</p></div>
+      <button class="btn primary" id="bannerCart">Armar pedido ↗</button>
+    </div>
+    <div class="benefits">
+      <article class="benefit"><h3>🎮 Selección gamer</h3>
+      <p>Productos para jugar, competir y disfrutar cada partida.</p></article>
+      <article class="benefit"><h3>🔎 Búsqueda rápida</h3>
+      <p>Buscá por nombre, filtrá por categoría y ordená por precio.</p></article>
+      <article class="benefit"><h3>💬 Consulta directa</h3>
+      <p>Prepará un pedido y consultá disponibilidad por WhatsApp.</p></article>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap footerinner">
+  <div><a class="logo" href="#"><span>LEVEL</span> UP.</a><p>Gaming gear for your next level.</p></div>
+  <div>© <span id="year"></span> LEVEL UP · Tienda de demostración</div>
+</div></footer>
+
+<a class="floatwa" href="#catalogo" id="waFloat">✆ Consultar</a>
+
+<div class="backdrop" id="cartModal" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modalhead"><h2>🛒 Tu carrito</h2>
+      <button class="btn secondary" data-close="cartModal">Cerrar ✕</button></div>
+    <div id="cartItems" class="cartlist"></div>
+    <div class="total"><span>Total estimado</span><span id="total">$0</span></div>
+    <p class="muted">Confirmá precios y disponibilidad antes de comprar.</p>
+    <button class="btn primary" id="checkout">Preparar pedido por WhatsApp</button>
+    <button class="btn secondary" data-close="cartModal">Seguir mirando</button>
+    <div class="notice">Esta web no procesa pagos. El mensaje de WhatsApp debe ser revisado y enviado por el cliente.</div>
+  </div>
+</div>
+
+<div class="backdrop" id="adminModal" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modalhead"><h2>⚙ Administración</h2>
+      <button class="btn secondary" data-close="adminModal">Cerrar ✕</button></div>
+    <div class="notice">Demo local: los cambios se guardan solamente en este navegador. No tiene contraseña segura ni base de datos. No es apto para administrar una tienda real pública.</div>
+    <h3>Agregar producto</h3>
+    <form id="productForm" class="formgrid">
+      <input class="field" name="name" placeholder="Nombre del producto" required maxlength="70">
+      <input class="field" name="price" type="number" min="1" placeholder="Precio en pesos" required>
+      <select class="field" name="category">
+        <option>Accesorios</option><option>Consolas</option>
+        <option>Audio</option><option>PC Gaming</option>
+      </select>
+      <input class="field" name="emoji" placeholder="Emoji, ej. 🎧" value="🎮" maxlength="6">
+      <input class="field full" name="description" placeholder="Descripción corta" required maxlength="130">
+      <button class="btn primary full" type="submit">Agregar producto</button>
+    </form>
+    <h3>Productos actuales</h3>
+    <div id="adminList" class="adminlist"></div>
+    <button class="btn secondary" id="reset">Restaurar productos de ejemplo</button>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* CONFIGURACIÓN: agrega el WhatsApp de la tienda cuando lo tengas.
+   Formato internacional, solo números. Ejemplo ficticio: 5493431234567 */
+const CONFIG = { whatsappNumber: "" };
+
+const exampleProducts = [
+ {id:1,name:"Consola Gaming",category:"Consolas",price:899999,emoji:"🎮",description:"Una experiencia de juego de nueva generación.",tag:"Destacado"},
+ {id:2,name:"Control inalámbrico",category:"Accesorios",price:119999,emoji:"🕹️",description:"Comodidad y precisión para tus partidas.",tag:"Top ventas"},
+ {id:3,name:"Headset Gamer",category:"Audio",price:84999,emoji:"🎧",description:"Audio inmersivo para escuchar cada detalle.",tag:""},
+ {id:4,name:"Teclado mecánico RGB",category:"PC Gaming",price:74999,emoji:"⌨️",description:"Teclado para completar tu setup.",tag:"Oferta"},
+ {id:5,name:"Mouse Gaming",category:"Accesorios",price:39999,emoji:"🖱️",description:"Ligero y cómodo para jugar.",tag:""},
+ {id:6,name:"Monitor Gaming",category:"PC Gaming",price:289999,emoji:"🖥️",description:"Más espacio para tus partidas.",tag:"Nuevo"}
+];
+
+const $ = id => document.getElementById(id);
+const money = n => new Intl.NumberFormat("es-AR",{
+ style:"currency",currency:"ARS",maximumFractionDigits:0
+}).format(n);
+
+function readSaved(key,fallback){
+ try{
+   const value=localStorage.getItem(key);
+   return value ? JSON.parse(value) : fallback;
+ }catch{return fallback;}
+}
+let products=readSaved("levelup_products",exampleProducts);
+let cart=readSaved("levelup_cart",[]);
+
+function saveProducts(){localStorage.setItem("levelup_products",JSON.stringify(products));}
+function saveCart(){localStorage.setItem("levelup_cart",JSON.stringify(cart));}
+function safe(s){
+ return String(s).replace(/[&<>"']/g,c=>({
+ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ })[c]);
+}
+function toast(message){
+ $("toast").textContent=message;
+ $("toast").style.display="block";
+ setTimeout(()=>$("toast").style.display="none",2200);
+}
+function filtered(){
+ const q=$("search").value.trim().toLowerCase();
+ const cat=$("category").value;
+ let list=products.filter(p=>
+  (cat==="all"||p.category===cat)&&
+  (p.name+" "+p.category+" "+p.description).toLowerCase().includes(q)
+ );
+ const sort=$("sort").value;
+ if(sort==="low")list.sort((a,b)=>a.price-b.price);
+ if(sort==="high")list.sort((a,b)=>b.price-a.price);
+ if(sort==="name")list.sort((a,b)=>a.name.localeCompare(b.name));
+ return list;
+}
+function renderProducts(){
+ const list=filtered();
+ $("productCount").textContent=list.length+" productos";
+ $("products").innerHTML=list.length?list.map((p,i)=>`
+  <article class="product" style="animation-delay:${i*40}ms">
+   <div class="productart"><span>${safe(p.emoji||"🎮")}</span>
+    ${p.tag?`<span class="tag">${safe(p.tag)}</span>`:""}
+   </div>
+   <div class="details">
+    <div class="category">${safe(p.category)}</div>
+    <h3>${safe(p.name)}</h3>
+    <p>${safe(p.description)}</p>
+    <div class="price">${money(p.price)}</div>
+    <div class="actions">
+     <button class="btn primary" onclick="addToCart(${p.id})">Agregar +</button>
+     <button class="btn secondary" onclick="details(${p.id})">Detalles</button>
+    </div>
+   </div>
+  </article>`).join(""):`<div class="empty">No encontramos productos. Probá otra búsqueda.</div>`;
+}
+function details(id){
+ const p=products.find(x=>x.id===id);
+ if(p)alert(p.name+"\n"+p.description+"\nPrecio de ejemplo: "+money(p.price));
+}
+function addToCart(id){
+ const p=products.find(x=>x.id===id);
+ if(!p)return;
+ const item=cart.find(x=>x.id===id);
+ item?item.qty++:cart.push({id,qty:1});
+ saveCart();renderCart();toast("Producto agregado al carrito");
+}
+function changeQty(id,delta){
+ const item=cart.find(x=>x.id===id);
+ if(!item)return;
+ item.qty+=delta;
+ if(item.qty<=0)cart=cart.filter(x=>x.id!==id);
+ saveCart();renderCart();
+}
+function removeItem(id){
+ cart=cart.filter(x=>x.id!==id);saveCart();renderCart();
+}
+function getTotal(){
+ return cart.reduce((sum,it)=>{
+  const p=products.find(x=>x.id===it.id);
+  return sum+(p?p.price*it.qty:0);
+ },0);
+}
+function renderCart(){
+ $("count").textContent=cart.reduce((s,it)=>s+it.qty,0);
+ $("total").textContent=money(getTotal());
+ $("cartItems").innerHTML=cart.length?cart.map(it=>{
+  const p=products.find(x=>x.id===it.id);
+  if(!p)return "";
+  return `<div class="cartitem"><div><strong>${safe(p.name)}</strong>
+   <small>${money(p.price)} por unidad</small>
+   <div class="qty">
+    <button onclick="changeQty(${p.id},-1)">−</button><span>${it.qty}</span>
+    <button onclick="changeQty(${p.id},1)">+</button>
+    <button onclick="removeItem(${p.id})">Quitar</button>
+   </div></div><strong>${money(p.price*it.qty)}</strong></div>`;
+ }).join(""):`<div class="empty">Tu carrito está vacío. Agregá un producto.</div>`;
+ renderAdmin();
+}
+function openModal(id){$(id).classList.add("open");}
+function closeModal(id){$(id).classList.remove("open");}
+
+function prepareWhatsApp(){
+ if(!cart.length){toast("Primero agregá un producto");return;}
+ if(!CONFIG.whatsappNumber){
+  alert("Todavía falta configurar el WhatsApp de la tienda. En el código, buscá CONFIG y completa whatsappNumber con el número del negocio, solo números y código de país.");
+  return;
+ }
+ const lines=cart.map(it=>{
+  const p=products.find(x=>x.id===it.id);
+  return p?`${p.name} x${it.qty} — ${money(p.price*it.qty)}`:"";
+ }).filter(Boolean);
+ const message="Hola, quiero consultar por este pedido de LEVEL UP:\n"+
+ lines.join("\n")+"\nTotal estimado: "+money(getTotal())+
+ "\n¿Me confirman disponibilidad y precio final?";
+ window.open("https://wa.me/"+CONFIG.whatsappNumber+
+  "?text="+encodeURIComponent(message),"_blank");
+}
+
+function renderAdmin(){
+ $("adminList").innerHTML=products.map(p=>`
+  <div class="adminrow"><div><strong>${safe(p.name)}</strong>
+   <small>${money(p.price)} · ${safe(p.category)}</small></div>
+   <button class="btn secondary" onclick="deleteProduct(${p.id})">Eliminar</button>
+  </div>`).join("")||"<p>No hay productos.</p>";
+}
+function deleteProduct(id){
+ products=products.filter(p=>p.id!==id);
+ cart=cart.filter(it=>it.id!==id);
+ saveProducts();saveCart();renderProducts();renderCart();
+ toast("Producto eliminado en este navegador");
+}
+$("productForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ const form=new FormData(e.currentTarget);
+ const p={
+  id:Date.now(),name:String(form.get("name")).trim(),
+  price:Number(form.get("price")),category:String(form.get("category")),
+  emoji:String(form.get("emoji")||"🎮"),
+  description:String(form.get("description")).trim(),tag:"Nuevo"
+ };
+ if(!p.name||!p.description||p.price<=0)return;
+ products.unshift(p);saveProducts();renderProducts();renderCart();
+ e.currentTarget.reset();toast("Producto agregado en este navegador");
+});
+$("reset").addEventListener("click",()=>{
+ if(confirm("¿Restaurar el catálogo de ejemplo?")){
+  products=exampleProducts.map(p=>({...p}));cart=[];
+  saveProducts();saveCart();renderProducts();renderCart();
+ }
+});
+["search","category","sort"].forEach(id=>
+ $(id).addEventListener(id==="search"?"input":"change",renderProducts)
+);
+["cartOpen","heroCart","bannerCart"].forEach(id=>
+ $(id).addEventListener("click",()=>openModal("cartModal"))
+);
+$("adminOpen").addEventListener("click",()=>openModal("adminModal"));
+$("checkout").addEventListener("click",prepareWhatsApp);
+$("waFloat").addEventListener("click",e=>{
+ if(CONFIG.whatsappNumber){
+  e.preventDefault();
+  window.open("https://wa.me/"+CONFIG.whatsappNumber,"_blank");
+ }
+});
+document.querySelectorAll("[data-close]").forEach(btn=>
+ btn.addEventListener("click",()=>closeModal(btn.dataset.close))
+);
+document.querySelectorAll(".backdrop").forEach(bg=>
+ bg.addEventListener("click",e=>{if(e.target===bg)bg.classList.remove("open")})
+);
+$("year").textContent=new Date().getFullYear();
+renderProducts();renderCart();
+</script>
+</body>
+</html>
